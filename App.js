@@ -1,21 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View, Button } from 'react-native';
+import styles from "./styles";
+import { NavigationContainer } from '@react-navigation/native'; //Router (wrappen)
+import { createStackNavigator } from '@react-navigation/stack'; //Switch
+import HomeScreen from "./Home";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+const Stack = createStackNavigator() //switch (routes in)
+
+function Screen1( {navigation} ) {
+   return <View style={styles.container}>
+        <Text>NETFLIX</Text>
+        <StatusBar style="auto" />
+        <Button onPress={() => navigation.navigate('Home')} title={`Go to Homescreen`}>Home</Button>
     </View>
-  );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+    // console.log (styles)
+  return (
+      <NavigationContainer>
+          <Stack.Navigator>
+              <Stack.Screen name="Start" component={Screen1} />
+              <Stack.Screen name="Home" component={HomeScreen} />
+          </Stack.Navigator>
+      </NavigationContainer>
+  );
+}
