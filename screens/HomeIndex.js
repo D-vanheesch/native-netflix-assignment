@@ -1,8 +1,9 @@
 import { Text, View, FlatList, StyleSheet, Pressable } from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import MovieShow from "./MovieShow";
 
-export default function HomeIndex( {navigation} ) {
+export default function HomeIndex({navigation}) {
 
     const [movies, setMovies] = useState([]);
 
@@ -43,8 +44,8 @@ export default function HomeIndex( {navigation} ) {
 
     }, [])
 
-    function goToMovie(id) {
-        navigation.navigation("MovieShow", ({id: id}));
+    function goToMovie(item) {
+        navigation.navigate("MovieShow", {item: item})
     }
 
 
@@ -54,16 +55,14 @@ export default function HomeIndex( {navigation} ) {
         <FlatList
             data={movies}
             renderItem={({ item }) => {
-                return <Pressable style={styles.listItem} onPress={() => goToMovie(item.synopsis)}>
+                return <Pressable style={styles.listItem} onPress={() => goToMovie(item)} >
                     <Text>
                     {item.title}
                     ({item.imdbrating})
-                    ({item.synopsis})
                 </Text>
                 </Pressable>
             }}
-            keyExtractor={item => item.id.toString()}
-
+            keyExtractor={(item) => item.id.toString()}
             ItemSeparatorComponent={() => {
                 return <View style={styles.itemSeparator} />
             }}
@@ -74,9 +73,11 @@ export default function HomeIndex( {navigation} ) {
 const styles = StyleSheet.create({
     itemSeparator: {
         borderBottomColor: 'black',
-        borderWidth: 2
+        borderWidth: 2,
+        justifyContent: 'center'
     },
     listItem: {
+        color: 'black',
 
     }
 })
