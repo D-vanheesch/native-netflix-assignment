@@ -1,4 +1,4 @@
-import { Text, View, FlatList, StyleSheet, Pressable } from "react-native";
+import {Text, View, FlatList, StyleSheet, Pressable, TextInput} from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MovieShow from "./MovieShow";
@@ -6,15 +6,15 @@ import MovieShow from "./MovieShow";
 export default function HomeIndex({navigation}) {
 
     const [movies, setMovies] = useState([]);
+    const [searchQuery, setSearchQuery] = useState();
 
-    // // const [search, setSearch] = useState('');
 
-    // // const [countries, setCountries] = useState();
 
     const options = {
         method: 'GET',
         url: 'https://unogsng.p.rapidapi.com/search',
         params: {
+            query: searchQuery,
             orderby: 'date',
             limit: '100',
             type: 'movie',
@@ -42,7 +42,7 @@ export default function HomeIndex({navigation}) {
         }
         getMovies();
 
-    }, [])
+    }, [searchQuery])
 
     function goToMovie(item) {
         navigation.navigate("MovieShow", {item: item})
@@ -50,17 +50,22 @@ export default function HomeIndex({navigation}) {
 
 
     return <View>
-        <Text>NETFLIX</Text>
+        <TextInput
+            onChangeText={setSearchQuery}
+            type="text"
+            placeholder="Search.."
+            style={{ backgroundColor: 'white', paddingHorizontal: 180, paddingTop: 20, paddingBottom: 20, }}
+        />
 
         <FlatList
             data={movies}
             renderItem={({ item }) => {
-                return <Pressable style={styles.listItem} onPress={() => goToMovie(item)} >
-                    <Text>
-                    {item.title}
-                    ({item.imdbrating})
-                </Text>
+                return <View style={styles.container}>
+                    <Pressable style={styles.listItem} onPress={() => goToMovie(item)} >
+                        <Text style={styles.title}>{item.title}</Text>
+                        <Text style={styles.imdbrating}>*Imdb: {item.imdbrating}</Text>
                 </Pressable>
+                </View>
             }}
             keyExtractor={(item) => item.id.toString()}
             ItemSeparatorComponent={() => {
@@ -72,12 +77,28 @@ export default function HomeIndex({navigation}) {
 
 const styles = StyleSheet.create({
     itemSeparator: {
-        borderBottomColor: 'black',
-        borderWidth: 2,
-        justifyContent: 'center'
+        borderBottomColor: 'red',
+        borderWidth: 4,
+        justifyContent: 'center',
     },
     listItem: {
-        color: 'black',
+        alignItems: 'center',
 
+    },
+    container: {
+        color: 'red',
+        textAlign: 'center',
+        paddingTop: 40,
+        paddingBottom: 80,
+    },
+    title: {
+        color: 'red',
+        fontSize: 25,
+        borderColor: 'red',
+    },
+    imdbrating: {
+        color: 'black',
+        fontSize: 20,
+        width: 100,
     }
 })
