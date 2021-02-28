@@ -1,6 +1,6 @@
 import React from "react";
 import {Button} from "react-native";
-import {ImageBackground, View, Text, StyleSheet, Image} from "react-native";
+import {ImageBackground, View, Text, StyleSheet} from "react-native";
 import HomeIndex from "./HomeIndex";
 
 
