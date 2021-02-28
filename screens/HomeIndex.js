@@ -1,9 +1,9 @@
-import {Text, View, FlatList, StyleSheet, Pressable, TextInput} from "react-native";
+import { Text, View, FlatList, StyleSheet, Pressable, TextInput } from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MovieShow from "./MovieShow";
 
-export default function HomeIndex({navigation}) {
+export default function HomeIndex({ navigation }) {
 
     const [movies, setMovies] = useState([]);
     const [searchQuery, setSearchQuery] = useState();
@@ -100,5 +100,5 @@ const styles = StyleSheet.create({
         color: 'black',
         fontSize: 20,
         width: 100,
-    }
-})
+    },
+});

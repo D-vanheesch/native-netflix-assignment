@@ -1,5 +1,5 @@
 import React  from "react";
-import {View, Text, StyleSheet, Image} from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 
 export default function MovieShow ( props ) {
 
@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor: 'black',
         flexDirection: 'column',
 
     },
@@ -52,4 +51,4 @@ const styles = StyleSheet.create({
         borderWidth: 5,
     },
 
-})
+});
